@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transfer</title>
+</head>
+<body>
+  <a href="/customers/<%= data.custId %>/accounts">Back</a>
+  <h3>
+    Transfer from <%= data.accountNumber %> <%= data.type %> <%= data.balance.toLocaleString('en-ID', {style: 'currency', currency: 'IDR'}); %> 
+  </h3> 
+
+  <form action="/customers/<%= data.custId %>/accounts/<%= data.id %>/transfer" method="post">
+
+    <label for="amount">Amount:</label><br>
+    <input type="text" id="amount" name="amount"><br><br>
+
+    <label for="transferId">Transfer to:</label><br>
+    <select name="transferId" id="transferId">
+      <option hidden selected disabled>Choose Account</option>
+      <% for (let i = 0; i < allAccount.length; i++) {
+        const account = allAccount[i]; 
+        if (account.id !== data.id) { %>
+          <option value="<%= account.id %>"><%= account.accountNumber %> <%= account.Customer.fullName %></option>
+        <% }
+      } %> 
+    </select><br><br>
+
+    <input type="submit" value="Transfer">
+    <input hidden type="text" id="balance" name="balance" value="<%= data.balance %>"><br><br>
+  </form>
+
+</body>
+</html>

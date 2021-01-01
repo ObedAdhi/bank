@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+</head>
+<body>
+  <h1>Edit Customer Data</h1>
+
+  <% if (errorMessage) { 
+    let temp = "" %>
+    <% for (let i = 0; i < errorMessage.length; i++) {
+      const char = errorMessage[i]; 
+      temp += char
+      if (char == "," || i == errorMessage.length-1) { %>
+        <p style="color: red;"> <%= temp %> </p>
+        <% temp = ""
+         } %>
+    <% } %>
+  <% } %>
+
+  <form action="/customers/<%= data.id %>/editProfile" method="post">
+    <label for="identityNumber">ID Number:</label><br>
+    <input type="text" id="identityNumber" name="identityNumber" value="<%= data.identityNumber %>"><br><br>
+    <label for="fullName">Full Name:</label><br>
+    <input type="text" id="fullName" name="fullName" value="<%= data.fullName %>"><br><br>
+    <label for="address">Address:</label><br>
+    <input type="text" id="address" name="address" value="<%= data.address %>"><br><br>
+    <label for="birthDate">Birth Date:</label><br>
+    <input type="date" id="birthDate" name="birthDate" value="<%= data.birthDate.toISOString().split('T')[0] %>"><br><br>
+    <label for="gender">Gender:</label><br>
+    <% if (data.gender == "Male") { %>
+      <input type="radio" id="Male" name="gender" value="Male" checked>
+      <label for="male">Male</label><br>
+      <input type="radio" id="Female" name="gender" value="Female">
+      <label for="female">Female</label><br>
+    <% } else { %>
+      <input type="radio" id="Male" name="gender" value="Male">
+      <label for="male">Male</label><br>
+      <input type="radio" id="Female" name="gender" value="Female" checked>
+      <label for="female">Female</label><br>
+    <% } %>
+    <input type="submit" value="Confirm">
+  </form>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accounts</title>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <a href="/customers">Back</a>
+  <h1>
+    Good day, <%= data.fullName %> 
+  </h1> 
+
+  <table style="width:fit-content">
+    <tr>
+      <th>Account Number</th>
+      <th>Type</th>
+      <th>Balance</th>
+      <th>Action</th>
+    </tr>
+
+    <% for (let i = 0; i < data.Accounts.length; i++) {
+      const account = data.Accounts[i]; %>
+      <tr>
+        <td> <%= account.accountNumber %> </td>
+        <td> <%= account.type %>  </td>
+        <td> <%= account.balance.toLocaleString('en-ID', {style: 'currency', currency: 'IDR'}); %>  </td>
+        <td> <a href="/customers/<%= data.id %>/accounts/<%= account.id %>/transfer">Transfer</a> </td>
+      </tr>
+    <% } %> 
+  </table>
+
+  <h1>
+    Add Account
+  </h1>
+
+  <form action="/customers/<%= data.id %>/accounts" method="post">
+    <label for="type">Account Type:</label><br>
+    <select name="type" id="type">
+      <option hidden selected disabled>Choose Account Type</option>
+      <option value="On Account">On Account</option>
+      <option value="Xtra Payroll">Xtra Payroll</option>
+      <option value="Tabunganku">Tabunganku</option>
+    </select><br><br>
+
+    <label for="balance">Balance:</label><br>
+    <input type="text" id="balance" name="balance"><br><br>
+
+    <input type="submit" value="Add Account">
+  </form>
+
+</body>
+</html>

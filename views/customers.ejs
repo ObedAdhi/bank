@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customers</title>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <h1>
+    Customer List
+  </h1> 
+  <a href="/customers/register">Register (New Customer)</a>
+
+  <table style="width:fit-content">
+    <tr>
+      <th>Identity Number</th>
+      <th>Full Name</th>
+      <th>Action</th>
+    </tr>
+
+    <% for (let i = 0; i < data.length; i++) {
+      const customer = data[i]; %>
+      <tr>
+        <td> <%= customer.identityNumber %> </td>
+        <td> <%= customer.fullName %>  </td>
+        <td><a href="/customers/<%= customer.id %>/accounts">View Account</a> || 
+          <a href="/customers/<%= customer.id %>/editProfile">Edit Profile</a></td>
+      </tr>
+    <% } %> 
+  </table>
+
+</body>
+</html>
